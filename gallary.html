@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photo Gallery – Bangladesh Travel Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#e8f1f5; --text:#0f172a; --muted:#64748b; --card:#fff; --shadow:0 10px 25px rgba(2,6,23,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    .header{position:sticky;top:0;background:#fff;border-bottom:1px solid #e5e7eb}
+    .nav{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:800;letter-spacing:.2px}
+    .btn{display:inline-block;background:#111827;color:#fff;text-decoration:none;padding:.6rem .9rem;border-radius:.6rem}
+    main{max-width:1100px;margin:0 auto;padding:28px 20px}
+    h1{font-size:clamp(28px,3.2vw,48px);margin:0 0 16px}
+    .lead{color:var(--muted);margin:0 0 28px}
+
+    /* grid */
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+    .thumb{display:block;background:var(--card);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+    .thumb img{display:block;width:100%;height:220px;object-fit:cover;transition:transform .3s ease}
+    .thumb:hover img{transform:scale(1.03)}
+
+    /* CSS lightbox using :target */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:30px}
+    .lightbox img{max-width:95vw;max-height:85vh;object-fit:contain;display:block}
+    .lightbox:target{display:flex}
+    .lb-ui{position:fixed;inset:0;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+    .lb-btn{pointer-events:auto;display:inline-block;background:rgba(255,255,255,.12);color:#fff;text-decoration:none;
+      padding:.6rem .9rem;border-radius:.6rem;margin:12px}
+    .lb-close{position:fixed;top:12px;right:12px}
+    .lb-cap{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;color:#fff;background:rgba(0,0,0,.45);
+      padding:.45rem .7rem;border-radius:.5rem;max-width:92vw;text-align:center}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="nav">
+      <div class="brand">Bangladesh Travel Guide</div>
+      <a class="btn" href="index.html">← Back to Home</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Photo Gallery</h1>
+    <p class="lead">All photos used across the site — click any image to view it large.</p>
+
+    <!-- 👇 Thumbnails (click opens CSS lightbox by #id) -->
+    <div id="grid" class="grid">
+
+      <!-- Highlights -->
+      <a class="thumb" href="#img-dhaka-riverside"><img src="./images/Dhaka City Riverside.jpg" alt="Dhaka Riverside"></a>
+      <a class="thumb" href="#img-inani"><img src="./images/inani-beach.jpg" alt="Cox's Bazar – Inani Beach"></a>
+      <a class="thumb" href="#img-sundarbans"><img src="./images/sondorbans.jpg" alt="Sundarbans"></a>
+      <a class="thumb" href="#img-bandarban"><img src="./images/Bandarban.jpg" alt="Bandarban"></a>
+
+      <!-- Places -->
+      <a class="thumb" href="#img-lalbagh"><img src="./images/lalbagh flot.jpg" alt="Lalbagh Fort"></a>
+      <a class="thumb" href="#img-amiakhum"><img src="./images/amiakhum.jpg" alt="Amiakhum Waterfall"></a>
+      <a class="thumb" href="#img-inani-2"><img src="./images/inani beach.jpg" alt="Inani Beach"></a>
+      <a class="thumb" href="#img-sajek"><img src="./images/sajek vally.jpg" alt="Sajek Valley (illustrative)"></a>
+
+      <!-- Food -->
+      <a class="thumb" href="#img-biryani"><img src="./images/briani.jpg" alt="Kacchi Biryani"></a>
+      <a class="thumb" href="#img-fuchka"><img src="./images/fuska pani pori.jpg" alt="Fuchka (Pani Puri)"></a>
+      <a class="thumb" href="#img-ilish"><img src="./images/panta ilish.webp" alt="Panta Ilish"></a>
+      <a class="thumb" href="#img-misti"><img src="./images/misti.jpg" alt="Misti / Sweets"></a>
+
+      <!-- Home Gallery -->
+      <a class="thumb" href="#img-dhaka-river"><img src="./images/dhaka river site.webp" alt="Dhaka riverside"></a>
+      <a class="thumb" href="#img-sundarbans-creek"><img src="./images/Sundarbans Mangrove Forest.jpg" alt="Sundarbans creek"></a>
+      <a class="thumb" href="#img-coxs-sunset"><img src="./images/Cox’s Bazar Beach Sunset.webp" alt="Cox's Bazar sunset"></a>
+      <a class="thumb" href="#img-bandarban-hills"><img src="./images/Bandarban hills.webp" alt="Bandarban hill view"></a>
+
+    </div>
+  </main>
+
+  <!-- 🔎 CSS-only lightbox panes (use :target) -->
+  <!-- You can add prev/next by linking to another #img-... but kept minimal here (no JS). Click the × or background to close. -->
+
+  <section id="img-dhaka-riverside" class="lightbox" aria-label="viewer">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/Dhaka City Riverside.jpg" alt="Dhaka Riverside large">
+    <div class="lb-cap">Dhaka Riverside</div>
+  </section>
+
+  <section id="img-inani" class="lightbox" aria-label="viewer">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/inani-beach.jpg" alt="Inani Beach large">
+    <div class="lb-cap">Cox's Bazar – Inani Beach</div>
+  </section>
+
+  <section id="img-sundarbans" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/sondorbans.jpg" alt="Sundarbans large">
+    <div class="lb-cap">Sundarbans</div>
+  </section>
+
+  <section id="img-bandarban" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/Bandarban.jpg" alt="Bandarban large">
+    <div class="lb-cap">Bandarban</div>
+  </section>
+
+  <section id="img-lalbagh" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/lalbagh flot.jpg" alt="Lalbagh Fort large">
+    <div class="lb-cap">Lalbagh Fort</div>
+  </section>
+
+  <section id="img-amiakhum" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/amiakhum.jpg" alt="Amiakhum large">
+    <div class="lb-cap">Amiakhum Waterfall</div>
+  </section>
+
+  <section id="img-inani-2" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/inani beach.jpg" alt="Inani Beach large">
+    <div class="lb-cap">Inani Beach</div>
+  </section>
+
+  <section id="img-sajek" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/sajek vally.jpg" alt="Sajek Valley large">
+    <div class="lb-cap">Sajek Valley (illustrative)</div>
+  </section>
+
+  <section id="img-biryani" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/briani.jpg" alt="Kacchi Biryani large">
+    <div class="lb-cap">Kacchi Biryani</div>
+  </section>
+
+  <section id="img-fuchka" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/fuska pani pori.jpg" alt="Fuchka large">
+    <div class="lb-cap">Fuchka (Pani Puri)</div>
+  </section>
+
+  <section id="img-ilish" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/panta ilish.webp" alt="Panta Ilish large">
+    <div class="lb-cap">Panta Ilish</div>
+  </section>
+
+  <section id="img-misti" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/misti.jpg" alt="Misti large">
+    <div class="lb-cap">Misti / Sweets</div>
+  </section>
+
+  <section id="img-dhaka-river" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/dhaka river site.webp" alt="Dhaka riverside large">
+    <div class="lb-cap">Dhaka riverside</div>
+  </section>
+
+  <section id="img-sundarbans-creek" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/Sundarbans Mangrove Forest.jpg" alt="Sundarbans creek large">
+    <div class="lb-cap">Sundarbans creek</div>
+  </section>
+
+  <section id="img-coxs-sunset" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/Cox’s Bazar Beach Sunset.webp" alt="Cox's Bazar sunset large">
+    <div class="lb-cap">Cox's Bazar sunset</div>
+  </section>
+
+  <section id="img-bandarban-hills" class="lightbox">
+    <a class="lb-close lb-btn" href="#grid">✕ Close</a>
+    <img src="./images/Bandarban hills.webp" alt="Bandarban hills large">
+    <div class="lb-cap">Bandarban hill view</div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>バングラデシュ旅行ガイド – 写真ギャラリー</title>
+  <meta name="description" content="サイト全体で使用しているすべての写真をまとめたギャラリーページです。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .gallery-cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .card{display:grid;grid-template-rows:auto 1fr}
+    .card .card-body h3{margin:0 0 6px}
+    .card .card-body p{margin:0;color:var(--muted);font-size:.95rem}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">メインコンテンツへ移動</a>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <span class="flag" aria-hidden="true"></span>
+        <span class="brand-text">Bangladesh</span>
+      </a>
+
+      <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="menuList" aria-label="メニューを開閉">
+        ☰
+      </button>
+
+      <nav class="menu" aria-label="主要ナビゲーション">
+        <ul id="menuList">
+          <li><a href="index.html#about">バングラデシュとは</a></li>
+          <li><a href="index.html#highlights">ハイライト</a></li>
+          <li><a href="index.html#places">観光地</a></li>
+          <li><a href="index.html#itinerary">モデルプラン</a></li>
+          <li><a href="index.html#food">グルメ</a></li>
+          <li><a href="gallery.html" aria-current="page">写真ギャラリー</a></li>
+          <li><a href="index.html#faq">よくある質問</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <h2>写真ギャラリー</h2>
+
+        <div id="gallery" class="grid gallery-cards"></div>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="画像ビューア">
+          <button class="lightbox-close" aria-label="閉じる">×</button>
+          <img id="lightboxImg" alt="">
+          <p id="lightboxCap" class="lightbox-cap"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> バングラデシュ旅行ガイド. 無断転載を禁じます。</p>
+      <button id="toTop" class="to-top" aria-label="先頭へ戻る">↑</button>
+    </div>
+  </footer>
+
+  <script>
+    // 年の自動更新
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // モバイルメニュー
+    (function(){
+      const btn = document.getElementById('menuBtn');
+      const menu = document.querySelector('.menu');
+      if(!btn || !menu) return;
+      btn.addEventListener('click', ()=> menu.classList.toggle('open'));
+    })();
+
+    // --- ギャラリーカード生成 ---
+    const galleryEl = document.getElementById('gallery');
+
+    const toTitle = (file) => {
+      return file
+        .replace(/^.*\//,'')
+        .replace(/\.[a-z0-9]+$/i,'')
+        .replace(/[_-]+/g,' ')
+        .replace(/\s+/g,' ')
+        .replace(/\b\w/g, c => c.toUpperCase())
+        .trim();
+    };
+
+    function addCard(path){
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.setAttribute('data-lightbox','');
+      a.href = path;
+      a.dataset.caption = toTitle(path);
+
+      const img = document.createElement('img');
+      img.alt = toTitle(path);
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.src = path;
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+      const h3 = document.createElement('h3');
+      h3.textContent = toTitle(path);
+      const p = document.createElement('p');
+      p.textContent = path.includes('/images/') ? 'images/' : 'image/';
+      body.append(h3,p);
+
+      a.append(img, body);
+      img.addEventListener('error', () => a.remove());
+      galleryEl.append(a);
+    }
+
+    const fromImage = [
+      'image/2.webp','image/ahsan.jpg','image/beef bhuna.jpg','image/chag.jpg','image/chattagong.jpg',
+      'image/chingri.jpg','image/chingri.webp','image/CHittagong.jpg','image/cricet.webp','image/cru.png',
+      'image/dhaka.jpg','image/dhaka1.jpg','image/dublar.jpg','image/football.jpg','image/hati.jpg',
+      'image/hiron.webp','image/kabab.jpg','image/kabab1.jpg','image/kabadi.jpg','image/Kalabhuna.jpg',
+      'image/karamjal.jpg','image/kotka.jpg','image/lalbag.jpg','image/meng3.jpg','image/panta.webp',
+      'image/rajshai.png','image/sazek.jpg','image/sfood.webp','image/son.webp','image/star.jpg',
+      'image/Sylhet.jpg','image/Tehari.webp','image/teheri 2.jpg','image/tiger.webp','image/vorta.jpg'
+    ];
+
+    const fromImages = [
+      'images/amiakhum.jpg','images/briani.jpg','images/bundorban.jpg','images/inani-beach.jpg',
+      'images/Kacchi briani.jpg','images/misti.jpg','images/sondorbans.jpg','images/Coxs Bazar.jpg',
+      'images/Bandarban Hills Morning Mist.webp','images/Bandarban hills.webp','images/Bandarban.jpg',
+      'images/bandorban.jpg',"images/Cox's Bazar Beach Sunset.jpg","images/Cox's Bazar Beach Sunset.webp",
+      "images/Cox's-Bazar-Itinerary-5-Day.jpg",'images/Dhaka City Riverside.jpg','images/Dhaka City Riverside1.jpg',
+      'images/dhaka river site.webp','images/fuska pani pori.jpg','images/fuska.jpg','images/himchori-waterfall.jpg',
+      'images/inani beach.jpg','images/istockphoto-595765922-612x612.jpg','images/lalbag flot.jpg',
+      'images/pangthujai water fall.jpg','images/panta ilish.jpg','images/panta ilish.webp',
+      'images/photo-1704821708356-c313bbd20ead.jpg','images/reasons-to-visit-Coxs-Bazar-1024x585.jpg',
+      'images/sajek vally.jpg','images/Sundarbans-National-Park.jpg','images/Sundarbans Mangrove Forest.jpg',
+      'images/Sunderbans-National-Park.jpg'
+    ];
+
+    [...fromImages.sort(), ...fromImage.sort()].forEach(addCard);
+
+    // --- ライトボックス機能 ---
+    (function(){
+      const links = Array.from(document.querySelectorAll('[data-lightbox]'));
+      const lb = document.getElementById('lightbox');
+      const img = lb.querySelector('#lightboxImg');
+      const cap = lb.querySelector('#lightboxCap');
+      const closeBtn = lb.querySelector('.lightbox-close');
+      if(!links.length || !lb) return;
+      let i = 0, open = false;
+
+      function openLb(idx){
+        i = idx;
+        const a = links[i];
+        img.src = a.getAttribute('href');
+        cap.textContent = a.dataset.caption || a.querySelector('img')?.alt || '';
+        lb.classList.add('is-open');
+        lb.setAttribute('aria-hidden','false');
+        document.documentElement.style.overflow = 'hidden';
+        closeBtn.focus();
+        open = true;
+      }
+      function closeLb(){
+        lb.classList.remove('is-open');
+        lb.setAttribute('aria-hidden','true');
+        document.documentElement.style.overflow = '';
+        open = false;
+        links[i]?.focus();
+      }
+      function onKey(e){
+        if(!open) return;
+        if(e.key === 'Escape') closeLb();
+        if(e.key === 'ArrowRight') openLb((i+1)%links.length);
+        if(e.key === 'ArrowLeft') openLb((i-1+links.length)%links.length);
+        if(e.key === 'Tab'){ e.preventDefault(); closeBtn.focus(); }
+      }
+
+      links.forEach((a,idx)=>{
+        a.setAttribute('role','button');
+        a.addEventListener('click',(e)=>{ e.preventDefault(); openLb(idx); });
+      });
+      closeBtn.addEventListener('click', closeLb);
+      lb.addEventListener('click',(e)=>{ if(e.target===lb) closeLb(); });
+      window.addEventListener('keydown', onKey);
+    })();
+  </script>
+</body>
+</html>
